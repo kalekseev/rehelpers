@@ -1,6 +1,6 @@
 {
   "name": "@kotify/rehelpers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Helpers for react/react-router/typescript projects",
   "main": "index.js",
   "author": "Konstantin Alekseev <konstantin@kotify.com>",
