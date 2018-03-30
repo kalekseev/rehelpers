@@ -2,6 +2,7 @@ import * as React from 'react';
 import isEqual from 'lodash-es/isEqual';
 import makeCancelable from '../makeCancelable';
 import omit from 'lodash-es/omit';
+import { getDisplayName } from '../utils';
 
 export interface Filters {
   [key: string]: string;
@@ -41,6 +42,8 @@ export function withListView<T>(
   Wrapped: React.ComponentType<ListViewInterface<T>>
 ) {
   class ListViewWrapper extends React.Component<Props, State<T>> {
+    static displayName = `WithListView(${getDisplayName(Wrapped)})`;
+
     static extractPageInfo(filters: Filters): [number, number, { [key: string]: string }] {
       const { page, page_size, ...rest } = filters;
       let selectedPage: number;

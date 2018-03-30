@@ -1,5 +1,6 @@
 import * as React from 'react';
 import range from 'lodash-es/range';
+import { getDisplayName } from '../utils';
 
 interface Props {
   count: number;
@@ -24,6 +25,8 @@ export interface PaginatorInterface {
 
 export function withPagination(Wrapped: React.ComponentType<PaginatorInterface>) {
   class Paginator extends React.Component<Props> {
+    static displayName = `WithPagination(${getDisplayName(Wrapped)})`;
+
     onChange = (page: number) => {
       return (e: React.MouseEvent<any>) => {
         e.preventDefault();

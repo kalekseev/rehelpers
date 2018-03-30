@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as qs from 'qs';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Props as ListViewProps, Filters } from './withListView';
+import { getDisplayName } from '../utils';
 
 interface Options {
   useReplaceFor: string[];
@@ -12,6 +13,8 @@ export function withReactRouterAdapter<T extends {}>(
   options?: Options
 ) {
   class ReactRouterWrapper extends React.Component<T & RouteComponentProps<{}>> {
+    static displayName = `WithReactRouterAdapter(${getDisplayName(Wrapped)})`;
+
     onQueryParamsChange = (queryParams: Filters) => {
       const propsQueryParams = qs.parse(this.props.location.search.substr(1));
       const update = { ...(document.location as any), search: qs.stringify(queryParams) };
