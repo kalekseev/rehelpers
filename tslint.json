@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**/*.ts"
+    ]
+  },
+  "rules": {
+    "no-submodule-imports": [
+      true,
+      "lodash-es",
+      "history"
+    ],
+    "no-implicit-dependencies": false,
+    "prefer-conditional-expression": false,
+    "interface-name": [true, "never-prefix"],
+    "ordered-imports": false,
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false,
+    "object-literal-sort-keys": false,
+    "no-unused-variable": [true, "react"],
+    "no-unused-expression": true,
+    "member-access": false
+  }
+}

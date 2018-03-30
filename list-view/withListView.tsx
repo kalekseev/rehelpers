@@ -98,12 +98,15 @@ export function withListView<T>(
     fetch(filters: Filters) {
       const [page] = ListViewWrapper.extractPageInfo(filters);
       this.setState({
-        pages: { ...this.state.pages, [page]: { entries: [], status: 'fetching' } },
+        pages: {
+          ...this.state.pages,
+          [page]: { entries: [], status: 'fetching' },
+        },
         inited: true,
       });
       this.cancelableFetch = makeCancelable(fetchPage(filters));
-      this.cancelableFetch.promise
-        .then(({ entries, count }) => {
+      this.cancelableFetch.promise.then(
+        ({ entries, count }) => {
           this.cancelableFetch = null;
           this.setState({
             pages: {
@@ -112,13 +115,13 @@ export function withListView<T>(
             },
             count,
           });
-        })
-        .catch(error => {
+        },
+        error => {
           this.cancelableFetch = null;
           if (error.isCanceled) {
             return;
           }
-          if (error.response.status === 404) {
+          if (error.response && error.response.status === 404) {
             this.setState({
               pages: {
                 ...this.state.pages,
@@ -128,20 +131,31 @@ export function withListView<T>(
           } else {
             throw error;
           }
-        });
+        }
+      );
     }
 
     onFilterChange = (filters: Filters) => {
       const [page, pageSize] = ListViewWrapper.extractPageInfo(filters);
-      this.props.onFilterChange({ ...filters, page: String(page), page_size: String(pageSize) });
+      this.props.onFilterChange({
+        ...filters,
+        page: String(page),
+        page_size: String(pageSize),
+      });
     };
 
     onPageChange = (pageNumber: number) => {
-      this.props.onFilterChange({ ...this.props.filters, page: String(pageNumber) });
+      this.props.onFilterChange({
+        ...this.props.filters,
+        page: String(pageNumber),
+      });
     };
 
     onPageSizeChange = (pageSize: number) => {
-      this.props.onFilterChange({ ...this.props.filters, page_size: String(pageSize) });
+      this.props.onFilterChange({
+        ...this.props.filters,
+        page_size: String(pageSize),
+      });
     };
 
     getPageStatus(page: number) {
