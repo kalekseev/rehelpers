@@ -19,7 +19,7 @@ export const createReducerNew = <S>(
   initialState: S,
   actionsMap: { [type: string]: (state: S, payload: any) => void }
 ) => {
-  return (state = initialState, { type, ...payload }: { type: string; payload: any }) => {
+  return (state = initialState, { type, payload }: { type: string; payload: any }) => {
     const handler = actionsMap[type];
     if (handler) {
       return createNextState(state, draft => {
