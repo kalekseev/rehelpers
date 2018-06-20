@@ -36,12 +36,12 @@ interface State<T> {
   inited: boolean;
 }
 
-export function withListView<T>(
+export function withListView<T, P extends object>(
   fetchPage: (filters: Filters) => Promise<{ entries: T[]; count: number }>,
   defaultPageSize: number,
-  Wrapped: React.ComponentType<ListViewInterface<T>>
+  Wrapped: React.ComponentType<P & ListViewInterface<T>>
 ) {
-  class ListViewWrapper extends React.Component<Props, State<T>> {
+  class ListViewWrapper extends React.Component<P & Props, State<T>> {
     static displayName = `WithListView(${getDisplayName(Wrapped)})`;
 
     static extractPageInfo(filters: Filters): [number, number, { [key: string]: string }] {
@@ -86,7 +86,7 @@ export function withListView<T>(
       if (!this.state.inited) {
         return;
       }
-      const { page, ...params } = this.props.filters;
+      const { page, ...params } = (this.props.filters as ListViewInterface<T>['filters']);
       const [nextPage] = ListViewWrapper.extractPageInfo(nextProps.filters);
       const updatedParams = omit(nextProps.filters, 'page');
       if (!isEqual(params, updatedParams)) {
@@ -149,14 +149,14 @@ export function withListView<T>(
 
     onPageChange = (pageNumber: number) => {
       this.props.onFilterChange({
-        ...this.props.filters,
+        ...(this.props.filters as ListViewInterface<T>['filters']),
         page: String(pageNumber),
       });
     };
 
     onPageSizeChange = (pageSize: number) => {
       this.props.onFilterChange({
-        ...this.props.filters,
+        ...(this.props.filters as ListViewInterface<T>['filters']),
         page_size: String(pageSize),
       });
     };
@@ -166,7 +166,7 @@ export function withListView<T>(
     }
 
     render() {
-      const { filters, onFilterChange, ...props } = this.props;
+      const { filters, onFilterChange, ...props } = (this.props as any);
       const [page, pageSize, childFilters] = ListViewWrapper.extractPageInfo(filters);
       return (
         <Wrapped
