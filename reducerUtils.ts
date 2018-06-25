@@ -29,3 +29,14 @@ export const createReducerNew = <S>(
     return state;
   };
 };
+
+export const createReducerNext = <S, A extends { type: string }>(
+  initialState: S,
+  actionsFn: (draft: S, action: A) => void | S
+) => {
+  return (state = initialState, action: A) => {
+    return createNextState(state, draft => {
+      return actionsFn(draft, action);
+    });
+  };
+};

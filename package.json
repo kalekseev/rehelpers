@@ -1,6 +1,6 @@
 {
   "name": "@kotify/rehelpers",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Helpers for react/react-router/typescript projects",
   "main": "index.js",
   "author": "Konstantin Alekseev <konstantin@kotify.com>",
@@ -11,7 +11,8 @@
   "peerDependencies": {
     "immer": "^1.3.1",
     "react": "^16.0",
-    "react-router": "^4.0"
+    "react-router": "^4.0",
+    "redux": "^4.0.0"
   },
   "dependencies": {
     "@types/lodash-es": "^4.17.0",
@@ -23,6 +24,7 @@
     "@types/react": "^16.1.0",
     "@types/react-dom": "^16.0.4",
     "@types/react-router": "^4.0.23",
+    "@types/redux": "^3.6.0",
     "prettier": "^1.11.1",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
