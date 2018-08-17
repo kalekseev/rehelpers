@@ -1,6 +1,6 @@
 {
   "name": "@kotify/rehelpers",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Helpers for react/react-router/typescript projects",
   "main": "index.js",
   "author": "Konstantin Alekseev <konstantin@kotify.com>",
@@ -9,7 +9,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "immer": "^1.3.1",
+    "immer": "^1.5.0",
     "react": "^16.0",
     "react-router": "^4.0",
     "redux": "^4.0.0"

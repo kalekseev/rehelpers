@@ -1,8 +1,8 @@
-import createNextState from 'immer';
+import createNextState, { Draft } from 'immer';
 
 export const createReducer = <S>(
   initialState: S,
-  actionsMap: { [type: string]: (state: S, payload: any) => void }
+  actionsMap: { [type: string]: (state: Draft<S>, payload: any) => void }
 ) => {
   return (state = initialState, { type, ...payload }: { type: string; payload: any }) => {
     const handler = actionsMap[type];
@@ -17,7 +17,7 @@ export const createReducer = <S>(
 
 export const createReducerNew = <S>(
   initialState: S,
-  actionsMap: { [type: string]: (state: S, payload: any) => void }
+  actionsMap: { [type: string]: (state: Draft<S>, payload: any) => void }
 ) => {
   return (state = initialState, { type, payload }: { type: string; payload: any }) => {
     const handler = actionsMap[type];
@@ -32,7 +32,7 @@ export const createReducerNew = <S>(
 
 export const createReducerNext = <S, A extends { type: string }>(
   initialState: S,
-  actionsFn: (draft: S, action: A) => void | S
+  actionsFn: (draft: Draft<S>, action: A) => void | S
 ) => {
   return (state = initialState, action: A) => {
     return createNextState(state, draft => {
